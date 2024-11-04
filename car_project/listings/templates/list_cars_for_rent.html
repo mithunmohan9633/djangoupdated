@@ -1,0 +1,80 @@
+<!-- list_cars_for_rent.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cars for Rent</title>
+</head>
+<body>
+    <h1>Available Cars for Rent</h1>
+    
+    <!-- Filter Form -->
+    <form method="GET" action="{% url 'list_cars_for_rent' %}">
+        <label for="brand">Brand:</label>
+        <select name="brand" id="brand">
+            <option value="">All</option>
+            {% for brand in brands %}
+                <option value="{{ brand.name }}">{{ brand.name }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="oil_type">Oil Type:</label>
+        <select name="oil_type" id="oil_type">
+            <option value="">All</option>
+            {% for oil_type in oil_types %}
+                <option value="{{ oil_type.name }}">{{ oil_type.name }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="price">Price:</label>
+        <select name="price" id="price">
+            <option value="">All</option>
+            <option value="below_50k">Below 50,000</option>
+            <option value="1L_to_3L">1,00,000 to 3,00,000</option>
+            <option value="3L_to_5L">3,00,000 to 5,00,000</option>
+            <option value="5L_to_10L">5,00,000 to 10,00,000</option>
+            <option value="above_10L">Above 10,00,000</option>
+        </select>
+
+        <input type="text" name="search" placeholder="Search by name">
+        <button type="submit">Filter</button>
+    </form>
+
+    <!-- Display Cars -->
+    <ul>
+        {% for car in cars_for_rent %}
+            <li>
+                <strong>{{ car.name }}</strong><br>
+                Brand: {{ car.brand }}<br>
+                Oil Type: {{ car.oil_type }}<br>
+                Price per Day: {{ car.price_per_day }}<br>
+                
+                <!-- WhatsApp Link -->
+                <a href="https://wa.me/{{ car.owner.whatsapp_number }}" target="_blank">Chat on WhatsApp</a><br>
+                
+                <!-- mParivahan Link -->
+                <a href="https://vahan.parivahan.gov.in/vahanservice/vahan/ui/stateSelection.do" target="_blank">
+                    Verify Registration Number: {{ car.registration_number }}
+                </a><br>
+
+                <!-- Location Link -->
+                <a href="https://www.google.com/maps/search/?api=1&query={{ car.location }}" target="_blank">View Location</a><br>
+
+                <!-- Edit and Delete Buttons -->
+                {% if car.owner == current_user %}
+                    <a href="{% url 'edit_car_for_rent' car.id %}" class="button">Edit Car</a>
+                    <form action="{% url 'delete_car_for_rent' car.id %}" method="POST" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="button" onclick="return confirm('Are you sure you want to delete this car?');">Delete Car</button>
+                    </form>
+                {% endif %}
+                
+                <!-- Add more car details as needed -->
+            </li>
+        {% empty %}
+            <li>No cars available for rent at the moment.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Car for Rent</title>
+</head>
+<body>
+    <h2>Add Car for Rent</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        {{ form.non_field_errors }}  <!-- Display non-field errors -->
+
+        <div>
+            <label for="{{ form.name.id_for_label }}">Car Name:</label>
+            {{ form.name }}  <!-- Render the input field -->
+            {{ form.name.errors }}  <!-- Display field-specific errors -->
+        </div>
+
+        <div>
+            <label for="{{ form.brand_name.id_for_label }}">Brand:</label>
+            {{ form.brand_name }}  <!-- Render the input field -->
+            {{ form.brand_name.errors }}  <!-- Display field-specific errors -->
+        </div>
+
+        <div>
+            <label for="{{ form.oil_type.id_for_label }}">Oil Type:</label>
+            {{ form.oil_type }}  <!-- Render the dropdown -->
+            {{ form.oil_type.errors }}  <!-- Display field-specific errors -->
+        </div>
+
+        <div>
+            <label for="{{ form.description.id_for_label }}">Description:</label>
+            {{ form.description }}  <!-- Render the textarea -->
+            {{ form.description.errors }}  <!-- Display field-specific errors -->
+        </div>
+
+        <div>
+            <label for="{{ form.price_per_day.id_for_label }}">Price per Day:</label>
+            {{ form.price_per_day }}  <!-- Render the input field -->
+            {{ form.price_per_day.errors }}  <!-- Display field-specific errors -->
+        </div>
+
+        <div>
+            <label for="{{ form.mileage.id_for_label }}">Mileage:</label>
+            {{ form.mileage }}  <!-- Render the input field -->
+            {{ form.mileage.errors }}  <!-- Display field-specific errors -->
+        </div>
+
+        <div>
+            <label for="{{ form.car_image.id_for_label }}">Car Image:</label>
+            {{ form.car_image }}  <!-- Render the file input field -->
+            {{ form.car_image.errors }}  <!-- Display field-specific errors -->
+        </div>
+
+        <div>
+            <label for="{{ form.location.id_for_label }}">Location:</label>
+            {{ form.location }}  <!-- Render the input field -->
+            {{ form.location.errors }}  <!-- Display field-specific errors -->
+        </div>
+
+        <div>
+            <label for="{{ form.whatsapp_number.id_for_label }}">WhatsApp Number:</label>
+            {{ form.whatsapp_number }}  <!-- Render the input field -->
+            {{ form.whatsapp_number.errors }}  <!-- Display field-specific errors -->
+        </div>
+
+        <div>
+            <label for="{{ form.registration_number.id_for_label }}">Registration Number:</label>
+            {{ form.registration_number }}  <!-- Render the input field -->
+            {{ form.registration_number.errors }}  <!-- Display field-specific errors -->
+        </div>
+
+        <button type="submit">Add Car for Rent</button>
+    </form>
+
+    <a href="{% url 'list_cars_for_rent' %}">Back to Cars for Rent</a>
+</body>
+</html>
